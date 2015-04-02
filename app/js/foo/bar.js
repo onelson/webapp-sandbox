@@ -4,7 +4,7 @@ var React = require('react');
 
 var Bar = React.createClass({
   render: () => {
-    console.info('render bar');
+    console.debug('render bar');
     return <h2>bar</h2>;
   }
 });

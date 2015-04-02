@@ -1,17 +1,21 @@
 /* global require, module, global */
 var React = require('react'),
     Bar = require('./foo/bar'),
-    Bat = require('./foo/bat');
+    Bat = require('./foo/bat'),
+    Navbar = require('./navbar'),
+    injectTapEventPlugin = require("react-tap-event-plugin");
 
 var App = React.createClass({
   statics: {
     run: (el) => {
+      injectTapEventPlugin();
       React.render(<App/>, el);
-      console.log('bootstraped');
+      console.debug('bootstraped');
     }
   },
   render: () =>  (
     <div>
+      <Navbar/>
       <Bar/>
       <Bat/>
     </div>
@@ -21,3 +25,4 @@ var App = React.createClass({
 
 module.exports = App;
 global.initApp = App.run;
+
