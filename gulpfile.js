@@ -7,6 +7,7 @@ var babel = require('babelify'),
     del = require('del'),
     gulp = require('gulp'),
     less = require('gulp-less'),
+    minifyCss = require('gulp-minify-css'),
     path = require('path'),
     reload = browserSync.reload,
     source = require('vinyl-source-stream'),
@@ -65,11 +66,18 @@ gulp.task('html', function() {
 
 gulp.task('styles', function () {
   return gulp.src('app/styles/main.less')
+    .pipe(sourcemaps.init())
     .pipe(less({
+      // The less-clean-css plugin currently breaks during sourcemap
+      // generation, but we should switch to that from gulp-minify-css once it
+      // is fixed.
+      plugins: [],
       paths: [
         path.join(__dirname, 'node_modules', 'material-ui', 'src', 'less')
       ]
     }))
+    .pipe(minifyCss())
+    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('dist/styles'))
     .pipe(reload({stream: true}));
 });
