@@ -4,9 +4,10 @@ var babel = require('babelify'),
     buffer = require('vinyl-buffer'),
     gulp = require('gulp'),
     less = require('gulp-less'),
+    reload = browserSync.reload,
     source = require('vinyl-source-stream'),
     sourcemaps = require('gulp-sourcemaps'),
-    reload = browserSync.reload,
+    uglify = require('gulp-uglify'),
     watchify = require('watchify');
 
 
@@ -25,6 +26,7 @@ function compile(watch) {
       .pipe(source('bundle.js'))
       .pipe(buffer())
       .pipe(sourcemaps.init({loadMaps: true}))
+      .pipe(uglify())
       .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest('./dist/js'));
   }
