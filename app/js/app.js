@@ -1,5 +1,4 @@
 /* global require, module */
-
 var React = require('react'),
     Bar = require('./foo/bar'),
     Bat = require('./foo/bat');
@@ -17,3 +16,5 @@ var App = React.createClass({
 });
 
 module.exports = App;
+global.initApp = App.run;
+
