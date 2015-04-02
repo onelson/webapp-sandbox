@@ -1,3 +1,5 @@
+/* global __dirname, require */
+
 var babel = require('babelify'),
     browserify = require('browserify'),
     browserSync = require('browser-sync'),
@@ -5,6 +7,7 @@ var babel = require('babelify'),
     del = require('del'),
     gulp = require('gulp'),
     less = require('gulp-less'),
+    path = require('path'),
     reload = browserSync.reload,
     source = require('vinyl-source-stream'),
     sourcemaps = require('gulp-sourcemaps'),
@@ -46,6 +49,11 @@ function watch() {
   return compile(true);
 }
 
+
+gulp.task('clean', function (callback) {
+  del(['./dist/**/*'], callback);
+});
+
 gulp.task('bundle', compile);
 
 gulp.task('html', function() {
@@ -57,18 +65,13 @@ gulp.task('html', function() {
 
 gulp.task('styles', function () {
   return gulp.src('app/styles/main.less')
-    .pipe(less())
+    .pipe(less({
+      paths: [
+        path.join(__dirname, 'node_modules', 'material-ui', 'src', 'less')
+      ]
+    }))
     .pipe(gulp.dest('dist/styles'))
     .pipe(reload({stream: true}));
-});
-
-gulp.task('clean', function (callback) {
-  try {
-    del('./dist', callback);
-  } catch (err) {
-    console.error(err);
-    this.emit('end');
-  }
 });
 
 gulp.task('js', ['bundle']);
