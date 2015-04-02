@@ -1,4 +1,6 @@
-/* global React */
+/* global require, module */
+
+var React = require('react');
 
 var Bar = React.createClass({
   render: () => {
@@ -6,3 +8,5 @@ var Bar = React.createClass({
     return <h2>bar</h2>;
   }
 });
+
+module.exports = Bar;

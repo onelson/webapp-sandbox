@@ -1,28 +1,50 @@
-var babel = require('gulp-babel'),
+var babel = require('babelify'),
+    browserify = require('browserify'),
     browserSync = require('browser-sync'),
-    concat = require('gulp-concat'),
+    buffer = require('vinyl-buffer'),
     gulp = require('gulp'),
     less = require('gulp-less'),
+    source = require('vinyl-source-stream'),
     sourcemaps = require('gulp-sourcemaps'),
-    reload = browserSync.reload;
+    reload = browserSync.reload,
+    watchify = require('watchify');
 
-gulp.task('scripts', function () {
-  return gulp.src('app/js/**/*.js')
-    .pipe(sourcemaps.init())
-    .pipe(concat('scripts.js'))
-    .pipe(babel())
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('dist/js'));
-});
 
-gulp.task('vendor', function () {
-  return gulp.src(
-    'node_modules/react/dist/react.js')
-    .pipe(sourcemaps.init())
-    .pipe(concat('vendor.js'))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('dist/js'))
-});
+function compile(watch) {
+  var bundler = watchify(
+    browserify('./app/js/app.js', {
+      debug: true,
+      paths: ['./app/js/'],
+      external: './app/js/**/*.js'
+    }).transform(babel)
+  );
+
+  function rebundle() {
+    return bundler.bundle()
+      .on('error', function(err) { console.error(err); this.emit('end'); })
+      .pipe(source('bundle.js'))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({loadMaps: true}))
+      .pipe(sourcemaps.write('./'))
+      .pipe(gulp.dest('./dist/js'));
+  }
+
+  if (watch) {
+    bundler.on('update', function() {
+      console.log('-> bundling...');
+      rebundle();
+    });
+  }
+
+  return rebundle();
+}
+
+function watch() {
+  return compile(true);
+}
+
+gulp.task('bundle', compile);
+
 
 gulp.task('html', function() {
   return gulp.src(
@@ -32,13 +54,13 @@ gulp.task('html', function() {
 
 gulp.task('styles', function () {
   return gulp.src('app/styles/main.less')
-    .pipe(less({}))
+    .pipe(less())
     .pipe(gulp.dest('dist/styles'))
     .pipe(reload({stream: true}));
 });
 
-gulp.task('js', ['scripts', 'vendor']);
-gulp.task('dist', ['js', 'html', 'styles']);
+gulp.task('js', ['bundle']);
+gulp.task('dist', ['html', 'styles', 'js']);
 
 gulp.task('serve', ['dist'], function() {
     browserSync({
@@ -46,7 +68,7 @@ gulp.task('serve', ['dist'], function() {
     });
     gulp.watch('app/styles/**/*.less', ['styles']);
     gulp.watch('app/*.html').on('change', reload);
-    gulp.watch('app/js/**/*.js', ['scripts']).on('change', reload);
+    watch();
 });
 
 gulp.task('default', ['serve'], function () {});

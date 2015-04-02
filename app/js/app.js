@@ -1,4 +1,8 @@
-/* global React, Bar, Bat */
+/* global require, module */
+
+var React = require('react'),
+    Bar = require('./foo/bar'),
+    Bat = require('./foo/bat');
 
 var App = React.createClass({
   statics: {
@@ -11,3 +15,5 @@ var App = React.createClass({
     </div>
   )
 });
+
+module.exports = App;
