@@ -2,6 +2,7 @@ var babel = require('babelify'),
     browserify = require('browserify'),
     browserSync = require('browser-sync'),
     buffer = require('vinyl-buffer'),
+    del = require('del'),
     gulp = require('gulp'),
     less = require('gulp-less'),
     reload = browserSync.reload,
@@ -47,11 +48,11 @@ function watch() {
 
 gulp.task('bundle', compile);
 
-
 gulp.task('html', function() {
   return gulp.src(
     'app/**/*.html')
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist'))
+    .pipe(reload({stream: true}));
 });
 
 gulp.task('styles', function () {
@@ -61,15 +62,24 @@ gulp.task('styles', function () {
     .pipe(reload({stream: true}));
 });
 
+gulp.task('clean', function (callback) {
+  try {
+    del('./dist', callback);
+  } catch (err) {
+    console.error(err);
+    this.emit('end');
+  }
+});
+
 gulp.task('js', ['bundle']);
-gulp.task('dist', ['html', 'styles', 'js']);
+gulp.task('dist', ['clean', 'html', 'styles', 'js']);
 
 gulp.task('serve', ['dist'], function() {
     browserSync({
         server: './dist'
     });
     gulp.watch('app/styles/**/*.less', ['styles']);
-    gulp.watch('app/*.html').on('change', reload);
+    gulp.watch('app/*.html', ['html']);
     watch();
 });
 
