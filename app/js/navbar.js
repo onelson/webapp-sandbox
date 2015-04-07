@@ -1,16 +1,16 @@
 /* global require, module */
 
-var React = require('react'),
-    mui = require('material-ui');
+const React = require('react');
+const mui = require('material-ui');
 
-var Toolbar = mui.Toolbar,
-    ToolbarGroup = mui.ToolbarGroup,
-    DropDownIcon = mui.DropDownIcon,
-    DropDownMenu = mui.DropDownMenu,
-    FontIcon = mui.FontIcon,
-    RaisedButton = mui.RaisedButton;
+const Toolbar = mui.Toolbar;
+const ToolbarGroup = mui.ToolbarGroup;
+const DropDownIcon = mui.DropDownIcon;
+const DropDownMenu = mui.DropDownMenu;
+const FontIcon = mui.FontIcon;
+const RaisedButton = mui.RaisedButton;
 
-var filterOptions = [
+const filterOptions = [
   {payload: '1', text: 'All Broadcasts'},
   {payload: '2', text: 'All Voice'},
   {payload: '3', text: 'All Text'},
@@ -20,12 +20,12 @@ var filterOptions = [
   {payload: '7', text: 'Active Text'}
 ];
 
-var iconMenuItems = [
+const iconMenuItems = [
   {payload: '1', text: 'Download'},
   {payload: '2', text: 'More Info'}
 ];
 
-var Navbar = React.createClass({
+const Navbar = React.createClass({
   render() {
     return (
       <Toolbar>

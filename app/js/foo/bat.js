@@ -1,21 +1,22 @@
 /* global require, module */
 
+const React = require('react');
+const mui = require('material-ui');
+const Dialog = mui.Dialog;
+const FlatButton = mui.FlatButton;
 
-var React = require('react'),
-    mui = require('material-ui'),
-    Dialog = mui.Dialog,
-    FlatButton = mui.FlatButton;
+const standardActions = [
+  {text: 'Cancel'},
+  {text: 'Submit'}
+];
 
-var Bat = React.createClass({
+const Bat = React.createClass({
   handleClick() {
     return this.refs.dialog.show();
   },
   render()  {
     console.debug('render bat');
-    var standardActions = [
-      {text: 'Cancel'},
-      {text: 'Submit'}
-    ];
+
     return (
       <div className={'bat'}>
         <Dialog
@@ -32,4 +33,3 @@ var Bat = React.createClass({
 });
 
 module.exports = Bat;
-

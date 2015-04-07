@@ -1,12 +1,12 @@
 /* global require, module, global */
 
-var React = require('react'),
-    Bar = require('./foo/bar'),
-    Bat = require('./foo/bat'),
-    Navbar = require('./navbar'),
-    injectTapEventPlugin = require("react-tap-event-plugin");
+const React = require('react');
+const Bar = require('./foo/bar');
+const Bat = require('./foo/bat');
+const Navbar = require('./navbar');
+const injectTapEventPlugin = require("react-tap-event-plugin");
 
-var App = React.createClass({
+const App = React.createClass({
   statics: {
     run(el) {
       injectTapEventPlugin();
@@ -27,4 +27,3 @@ var App = React.createClass({
 
 module.exports = App;
 global.initApp = App.run;
-

@@ -1,8 +1,8 @@
 /* global require, module */
 
-var React = require('react');
+const React = require('react');
 
-var Bar = React.createClass({
+const Bar = React.createClass({
   render() {
     console.debug('render bar');
     return <h2>bar</h2>;
