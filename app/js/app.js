@@ -1,4 +1,5 @@
 /* global require, module, global */
+
 var React = require('react'),
     Bar = require('./foo/bar'),
     Bat = require('./foo/bat'),
@@ -7,20 +8,21 @@ var React = require('react'),
 
 var App = React.createClass({
   statics: {
-    run: (el) => {
+    run(el) {
       injectTapEventPlugin();
       React.render(<App/>, el);
       console.debug('bootstraped');
     }
   },
-  render: () =>  (
-    <div>
-      <Navbar/>
-      <Bar/>
-      <Bat/>
-    </div>
-  )
-
+  render() {
+    return (
+      <div>
+        <Navbar/>
+        <Bar/>
+        <Bat/>
+      </div>
+    );
+  }
 });
 
 module.exports = App;

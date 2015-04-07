@@ -39,7 +39,7 @@ function compile(watch) {
   if (watch) {
     bundler.on('update', function() {
       console.log('-> bundling...');
-      rebundle();
+      rebundle().pipe(reload({stream: true}));
     });
   }
 

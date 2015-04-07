@@ -2,7 +2,7 @@
   "name": "rp-new",
   "version": "0.0.1-dev",
   "devDependencies": {
-    "babelify": "~5.0.4",
+    "babelify": "~6.0.1",
     "browser-sync": "~2.5.2",
     "browserify": "~9.0.4",
     "gulp": "~3.8.11",

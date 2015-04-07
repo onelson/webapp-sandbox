@@ -26,20 +26,24 @@ var iconMenuItems = [
 ];
 
 var Navbar = React.createClass({
-  render: () => (
-    <Toolbar>
-      <ToolbarGroup key={0} float="left">
-        <DropDownMenu menuItems={filterOptions} />
-      </ToolbarGroup>
-      <ToolbarGroup key={1} float="right">
-        <FontIcon className="mui-icon-pie" />
-        <FontIcon className="mui-icon-sort" />
-        <DropDownIcon iconClassName="icon-navigation-expand-more" menuItems={iconMenuItems} />
-        <span className="mui-toolbar-separator">&nbsp;</span>
-        <RaisedButton label="Create Broadcast" primary={true} />
-      </ToolbarGroup>
-    </Toolbar>
-  )
+  render() {
+    return (
+      <Toolbar>
+        <ToolbarGroup key={0} float="left">
+          <DropDownMenu menuItems={filterOptions} />
+        </ToolbarGroup>
+        <ToolbarGroup key={1} float="right">
+          <FontIcon className="mui-icon-pie" />
+          <FontIcon className="mui-icon-sort" />
+          <DropDownIcon
+            iconClassName="icon-navigation-expand-more"
+            menuItems={iconMenuItems} />
+          <span className="mui-toolbar-separator">&nbsp;</span>
+          <RaisedButton label="Create Broadcast" primary={true} />
+        </ToolbarGroup>
+      </Toolbar>
+    );
+  }
 
 });
 
