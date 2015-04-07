@@ -64,7 +64,14 @@ gulp.task('html', function() {
     .pipe(reload({stream: true}));
 });
 
-gulp.task('styles', function () {
+// Probably a one time thing... fonts won't be changing but once on a blue moon.
+gulp.task('fonts', function() {
+  return gulp.src(
+    'bower_components/material-design-iconic-font/fonts/**')
+    .pipe(gulp.dest('dist/fonts/md'));
+});
+
+gulp.task('styles', ['fonts'], function () {
   return gulp.src('app/styles/main.less')
     .pipe(sourcemaps.init())
     .pipe(less({
@@ -73,7 +80,10 @@ gulp.task('styles', function () {
       // is fixed.
       plugins: [],
       paths: [
-        path.join(__dirname, 'node_modules', 'material-ui', 'src', 'less')
+        path.join(
+          __dirname, 'node_modules', 'material-ui', 'src', 'less'),
+        path.join(
+          __dirname, 'bower_components', 'material-design-iconic-font', 'less')
       ]
     }))
     .pipe(minifyCss())

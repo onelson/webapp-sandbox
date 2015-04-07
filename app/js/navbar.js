@@ -35,10 +35,10 @@ const Navbar = React.createClass({
           <DropDownMenu menuItems={filterOptions} />
         </ToolbarGroup>
         <ToolbarGroup key={1} float="right">
-          <FontIcon className="mui-icon-pie" />
-          <FontIcon className="mui-icon-sort" />
+          <FontIcon className="md md-timelapse md-2x" />
+          <FontIcon className="md md-sort md-2x" />
           <DropDownIcon
-            iconClassName="icon-navigation-expand-more"
+            iconClassName="md md-expand-more md-2x"
             menuItems={iconMenuItems} />
           <span className="mui-toolbar-separator">&nbsp;</span>
           <RaisedButton label="Create Broadcast" primary={true} />
