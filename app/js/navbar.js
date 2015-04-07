@@ -3,12 +3,14 @@
 const React = require('react');
 const mui = require('material-ui');
 
-const Toolbar = mui.Toolbar;
-const ToolbarGroup = mui.ToolbarGroup;
-const DropDownIcon = mui.DropDownIcon;
-const DropDownMenu = mui.DropDownMenu;
-const FontIcon = mui.FontIcon;
-const RaisedButton = mui.RaisedButton;
+const {
+  Toolbar,
+  ToolbarGroup,
+  DropDownIcon,
+  DropDownMenu,
+  FontIcon,
+  RaisedButton
+  } = mui;
 
 const filterOptions = [
   {payload: '1', text: 'All Broadcasts'},
