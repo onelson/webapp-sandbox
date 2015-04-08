@@ -93,7 +93,8 @@ gulp.task('styles', ['fonts'], function () {
 });
 
 gulp.task('js', ['bundle']);
-gulp.task('dist', ['clean', 'html', 'styles', 'js']);
+gulp.task('build', ['html', 'styles', 'js']);
+gulp.task('dist', ['clean', 'build']);
 
 gulp.task('serve', ['dist'], function() {
     browserSync({
